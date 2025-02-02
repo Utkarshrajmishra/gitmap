@@ -29,7 +29,6 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <main className="font-jakarta top-0 left-0 right-0 z-10">
-          <Navbar />
           {children}
         </main>
       </body>

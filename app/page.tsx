@@ -2,11 +2,13 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CirclePlay } from "lucide-react";
+import Navbar from "@/components/Navbar";
 
 export default function Home() {
   return (
     <div className=" h-[100vh]  w-full bg-gradient-to-b from-custom-3 via-custom-4 via-custom-5 via-custom-6 via-custom-7 via-custom-8 via-custom-9 via-custom-10 via-custom-11 via-custom-12 via-custom-13 via-custom-14 via-custom-15 via-custom-16 via-custom-17 via-custom-18 via-custom-19 via-custom-20 via-custom-21 to-black p-8 overflow-hidden">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+      <Navbar />
 
       <main className="relative flex flex-col items-center justify-center h-screen">
         <div>
@@ -18,14 +20,14 @@ export default function Home() {
         <div className="flex mt-8 flex-col">
           <h1 className="text-4xl z-20 font-bold tracking-tighter text-center text-white sm:text-5xl md:text-6xl lg:text-7xl font-jakarta leading-loose">
             Visualize Your GitHub Repos <br /> Like Never Before With{" "}
-            <span className="bg-[#4e152f] z-[10] p-1 border border-[#5c2c42]">
+            <span className="bg-[#924467] text-transparent bg-clip-text">
               GitMap
             </span>
           </h1>
           <p className="mt-6 text-lg text-center leading-wide text-neutral-400 font-inter">
             Unlock the power of your GitHub repository with GitMap! Seamlessly
-            map out branches and  commits into an <br /> interactive mind map. Start
-            exploring your  codebase in a whole new way!
+            map out branches and commits into an <br /> interactive mind map.
+            Start exploring your codebase in a whole new way!
           </p>
         </div>
 
