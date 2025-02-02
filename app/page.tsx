@@ -16,7 +16,7 @@ export default function Home() {
         </div>
 
         <div className="flex mt-8 flex-col">
-          <h1 className="text-4xl z-10 font-bold tracking-tighter text-center text-white sm:text-5xl md:text-6xl lg:text-7xl font-jakarta leading-loose">
+          <h1 className="text-4xl z-20 font-bold tracking-tighter text-center text-white sm:text-5xl md:text-6xl lg:text-7xl font-jakarta leading-loose">
             Visualize Your GitHub Repos <br /> Like Never Before With{" "}
             <span className="bg-[#4e152f] z-[10] p-1 border border-[#5c2c42]">
               GitMap
