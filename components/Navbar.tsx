@@ -9,7 +9,7 @@ const Navbar = () => {
   const [show,setShow]=useState(false)
   return (
     <>
-      <nav className="absolute px-10 mt-8  font-jakarta top-0 left-0 right-0 z-10">
+      <nav className="absolute px-10 md:mt-8 mt-4  font-jakarta top-0 left-0 right-0 z-10">
         <ul className="flex items-center justify-between w-full">
           <li className="text-white font-jakarta flex gap-2 items-center">
             <div className="text-white bg-[#4e152f] h-fit w-fit p-2 rounded-xl">
