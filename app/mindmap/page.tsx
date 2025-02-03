@@ -6,7 +6,17 @@ import "reactflow/dist/style.css";
 
 const Mindmap = () => {
   const { branches } = useContext(CommitContext);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowWidth, setWindowWidth] = useState(0); // Start with 0 to avoid SSR issues
+
+  useEffect(() => {
+    // Ensure window is defined before accessing it
+    setWindowWidth(window.innerWidth);
+
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Responsive node styling
   const nodeStyle = (width: number, isBranch: boolean = false) => ({
@@ -22,10 +32,9 @@ const Mindmap = () => {
   // Responsive positioning function
   const getNodePosition = (branchIndex: number, commitIndex: number) => {
     if (windowWidth < 640) {
-      // Tailwind's sm breakpoint
       return {
-        x: commitIndex * 150, // Tighter horizontal spacing
-        y: branchIndex * 250, // More vertical spacing
+        x: commitIndex * 150,
+        y: branchIndex * 250,
       };
     }
     return {
@@ -34,19 +43,13 @@ const Mindmap = () => {
     };
   };
 
-  // Add event listener for window resize
-  useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  if (windowWidth === 0) return <div>Loading...</div>; // Prevent rendering until window is available
 
   // Node and edge generation
   const nodes: Node[] = [];
   const edges: Edge[] = [];
 
   branches.forEach((branch, branchIndex) => {
-    // Add branch node
     const branchNodeId = `branch-${branch.name}-${branchIndex}`;
     nodes.push({
       id: branchNodeId,
@@ -55,7 +58,6 @@ const Mindmap = () => {
       style: nodeStyle(windowWidth, true),
     });
 
-    // Add commit nodes for this branch
     branch.commits.forEach((commit, commitIndex) => {
       const commitNodeId = `${branchNodeId}-commit-${commitIndex}`;
       nodes.push({
@@ -64,29 +66,23 @@ const Mindmap = () => {
           label: (
             <div className="p-1">
               <div
-                className={`
-                font-medium 
-                truncate 
-                ${windowWidth < 640 ? "text-sm" : "text-base"}
-              `}
+                className={`${
+                  windowWidth < 640 ? "text-sm" : "text-base"
+                } font-medium truncate`}
               >
                 {commit.message}
               </div>
               <div
-                className={`
-                text-xs 
-                text-zinc-200 
-                ${windowWidth < 640 ? "text-[10px]" : ""}
-              `}
+                className={`${
+                  windowWidth < 640 ? "text-[10px]" : "text-xs"
+                } text-zinc-200`}
               >
                 {commit.author}
               </div>
               <div
-                className={`
-                text-xs 
-                text-zinc-200 
-                ${windowWidth < 640 ? "text-[10px]" : ""}
-              `}
+                className={`${
+                  windowWidth < 640 ? "text-[10px]" : "text-xs"
+                } text-zinc-200`}
               >
                 {new Date(commit.date).toLocaleDateString()}
               </div>
@@ -97,7 +93,6 @@ const Mindmap = () => {
         style: nodeStyle(windowWidth),
       });
 
-      // Create edges between commits on the same branch
       if (commitIndex > 0) {
         const prevCommitNodeId = `${branchNodeId}-commit-${commitIndex - 1}`;
         edges.push({
@@ -106,14 +101,10 @@ const Mindmap = () => {
           target: commitNodeId,
           type: "smoothstep",
           animated: true,
-          style: {
-            stroke: "#a56884",
-            strokeWidth: windowWidth < 640 ? 1 : 2,
-          },
+          style: { stroke: "#a56884", strokeWidth: windowWidth < 640 ? 1 : 2 },
         });
       }
 
-      // Create edge from branch to first commit
       if (commitIndex === 0) {
         edges.push({
           id: `edge-${branchNodeId}-${commitNodeId}`,
@@ -121,10 +112,7 @@ const Mindmap = () => {
           target: commitNodeId,
           type: "smoothstep",
           animated: true,
-          style: {
-            stroke: "#a56884",
-            strokeWidth: windowWidth < 640 ? 1 : 2,
-          },
+          style: { stroke: "#a56884", strokeWidth: windowWidth < 640 ? 1 : 2 },
         });
       }
     });
@@ -132,24 +120,14 @@ const Mindmap = () => {
 
   return (
     <div
-      className={`
-      bg-gradient-to-b 
-      from-neutral-900 
-      to-black 
-      h-screen 
-      overflow-hidden
-      ${windowWidth < 640 ? "p-2" : ""}
-    `}
+      className={`bg-gradient-to-b from-neutral-900 to-black h-screen overflow-hidden ${
+        windowWidth < 640 ? "p-2" : ""
+      }`}
     >
       <div
-        className={`
-        w-full 
-        h-screen 
-        bg-neutral-900 
-        rounded-lg 
-        shadow-inner
-        ${windowWidth < 640 ? "p-0" : ""}
-      `}
+        className={`w-full h-screen bg-neutral-900 rounded-lg shadow-inner ${
+          windowWidth < 640 ? "p-0" : ""
+        }`}
       >
         <ReactFlow
           nodes={nodes}
