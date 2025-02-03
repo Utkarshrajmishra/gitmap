@@ -18,12 +18,11 @@ const Navbar = () => {
             <p className="text-2xl font-bold">GitMap</p>
           </li>
           <li className="hidden md:inline-block">
-            <Button
-              onClick={() => setShow(true)}
-              className="bg-[#4e152f] font-jakarta border border-[#5c2c42] hover:bg-[#330c1e]"
-            >
-              {" "}
-              <ArrowUp /> Upvote Us PeerList
+            <Button className="bg-[#4e152f] font-jakarta border border-[#5c2c42] hover:bg-[#330c1e]">
+              <a href="https://peerlist.io/utk_075/project/gitmap" className="flex items-center gap-1">
+                {" "}
+                <ArrowUp /> Upvote Us PeerList
+              </a>
             </Button>
           </li>
         </ul>

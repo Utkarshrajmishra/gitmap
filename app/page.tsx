@@ -7,6 +7,8 @@ import Navbar from "@/components/Navbar";
 import { CommitContext } from "@/context/CommitContext";
 import { useRouter } from "next/navigation";
 import { Alert } from "@/components/Alert";
+import Image from "next/image";
+import PeerList from "@/public/Launch_SVG_Dark.svg";
 
 export default function Home() {
   const { setCommitData } = useContext(CommitContext);
@@ -45,12 +47,14 @@ export default function Home() {
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
       <Navbar />
 
-      <main className="relative flex flex-col items-center justify-center h-screen">
-        <div className="hidden md:inline-block">
-          <p className="border border-neutral-400 font-inter text-white text-sm bg-black rounded-2xl py-1 px-6 ">
-            Start Visualizing Your Repos ✨
-          </p>
-        </div>
+      <main className="relative mt-5 md:mt-0 flex flex-col items-center justify-center h-screen">
+        <a
+          href="https://peerlist.io/utk_075/project/gitmap"
+          target="_blank"
+          className=" md:inline-block"
+        >
+          <Image alt="Image" src={PeerList} width={200} height={200} />
+        </a>
 
         <div className="flex mt-8  flex-col">
           <h1 className="text-5xl z-20 font-bold md:tracking-tighter text-center text-white sm:text-5xl md:text-6xl lg:text-7xl font-jakarta md:leading-loose">
@@ -66,8 +70,8 @@ export default function Home() {
           </p>
           <p className="mt-6 hidden md:inline-block text-sm px-3 md:text-lg text-center leading-wide text-neutral-400 font-inter">
             Unlock the power of your GitHub repository with GitMap! Seamlessly
-            map out branches and commits into an <br /> interactive mind map. Start
-            exploring your codebase in a whole new way!
+            map out branches and commits into an <br /> interactive mind map.
+            Start exploring your codebase in a whole new way!
           </p>
         </div>
 
@@ -89,7 +93,7 @@ export default function Home() {
             className="border border-[#5c2c42] text-white md:h-11 h-10 bg-custom-5/20 md:w-[250px] bg-[#471f31] placeholder:text-zinc-300 text-sm md:text-md"
           />
           <Button
-          disabled={!data.username || !data.repo}
+            disabled={!data.username || !data.repo}
             onClick={getBranch}
             className="md:h-11 h-10 border border-[#5c2c42] bg-[#4e152f] hover:bg-[#3a081f] text-white w-full  md:w-[150px] flex gap-2 items-center"
           >
@@ -106,8 +110,12 @@ export default function Home() {
           </Button>
         </div>
       </main>
-      <Alert show={error} setShow={setError} title="Some error have occured!" desc="Please make sure you are connected to internet and the github username and repo that you have entered is corrected." />
+      <Alert
+        show={error}
+        setShow={setError}
+        title="Some error have occured!"
+        desc="Please make sure you are connected to internet and the github username and repo that you have entered is corrected."
+      />
     </div>
-
   );
 }
