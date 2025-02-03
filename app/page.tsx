@@ -6,11 +6,12 @@ import { CirclePlay, Loader } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import { CommitContext } from "@/context/CommitContext";
 import { useRouter } from "next/navigation";
+import { Alert } from "@/components/Alert";
 
 export default function Home() {
   const { setCommitData } = useContext(CommitContext);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<boolean>(false);
   const router = useRouter();
   const [data, setData] = useState({
     username: "",
@@ -19,7 +20,7 @@ export default function Home() {
 
   const getBranch = async () => {
     setIsLoading(true);
-    setError(null);
+    setError(false);
 
     try {
       const response = await fetch(
@@ -34,7 +35,7 @@ export default function Home() {
       setCommitData(result);
       router.push("/mindmap");
     } catch (err: any) {
-      setError(err.message);
+      setError(true);
       setIsLoading(false);
     }
   };
@@ -88,6 +89,7 @@ export default function Home() {
             className="border border-[#5c2c42] text-white md:h-11 h-10 bg-custom-5/20 md:w-[250px] bg-[#471f31] placeholder:text-zinc-300 text-sm md:text-md"
           />
           <Button
+          disabled={!data.username || !data.repo}
             onClick={getBranch}
             className="md:h-11 h-10 border border-[#5c2c42] bg-[#4e152f] hover:bg-[#3a081f] text-white w-full  md:w-[150px] flex gap-2 items-center"
           >
@@ -104,6 +106,8 @@ export default function Home() {
           </Button>
         </div>
       </main>
+      <Alert show={error} setShow={setError} title="Some error have occured!" desc="Please make sure you are connected to internet and the github username and repo that you have entered is corrected." />
     </div>
+
   );
 }
