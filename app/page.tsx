@@ -46,13 +46,13 @@ export default function Home() {
       <Navbar />
 
       <main className="relative flex flex-col items-center justify-center h-screen">
-        <div>
+        <div className="hidden md:inline-block">
           <p className="border border-neutral-400 font-inter text-white text-sm bg-black rounded-2xl py-1 px-6 ">
             Start Visualizing Your Repos ✨
           </p>
         </div>
 
-        <div className="flex mt-8 flex-col">
+        <div className="flex mt-8  flex-col">
           <h1 className="text-5xl z-20 font-bold md:tracking-tighter text-center text-white sm:text-5xl md:text-6xl lg:text-7xl font-jakarta md:leading-loose">
             Visualize Your GitHub Repos <br /> Like Never Before With{" "}
             <span className="bg-[#924467] text-transparent bg-clip-text">
