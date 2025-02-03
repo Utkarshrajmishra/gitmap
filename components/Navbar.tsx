@@ -11,7 +11,7 @@ const Navbar = () => {
           </div>
           <p className="text-2xl font-bold">GitMap</p>
         </li>
-        <li>
+        <li className="hidden md:inline-block">
           <Button className="bg-[#4e152f] font-jakarta border border-[#5c2c42] hover:bg-[#330c1e]">
             {" "}
             <ArrowUp /> Upvote Us PeerList
